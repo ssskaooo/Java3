@@ -51,10 +51,12 @@ public class Car implements Runnable {
         }
         cdl.countDown();
         int finishPlace = finishCount.incrementAndGet();
-        if (finishPlace == 1) {
-            System.out.println(this.name + " ПОБЕДИЛ В ГОНКЕ!!!");
-        } else {
-            System.out.printf("%s занял %d место%n", this.name, finishPlace);
+        synchronized (this) {
+            if (finishPlace == 1) {
+                System.err.println(this.name + " ПОБЕДИЛ В ГОНКЕ!!!");
+            } else {
+                System.out.printf("%s занял %d место%n", this.name, finishPlace);
+            }
         }
 /*
         if (isWinner())
